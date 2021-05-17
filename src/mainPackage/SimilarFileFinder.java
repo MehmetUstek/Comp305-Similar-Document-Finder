@@ -23,39 +23,88 @@ public class SimilarFileFinder {
 
 		String str= readFileIntoString("file1.txt");
 		String str2= readFileIntoString("file2.txt");
-		HashMap<String,ArrayList<String>> map = compareTwoFiles(str,str2,3);
-		int count =getTheNumbers(map,0);
-//		System.out.print(count);
+		HashMap<String,ArrayList<String>> map = compareTwoFiles(str,3);
+		HashMap<String,ArrayList<String>> map2 = compareTwoFiles(str2,3);
+		int count =getTheNumbers(map, map2, 4);
+		System.out.println("count"+count);
 	}
-//	public void aaa(int count,HashMap<String,ArrayList<String>> map ) {
-//		for(int i=0;i<count;i++) {
-//			map.get(key)
-//		}
-//	}
-	public static int getTheNumbers(HashMap<String,ArrayList<String>> map, int wordCount) {
+	public static int getTheNumbers(HashMap<String,ArrayList<String>> map, HashMap<String,ArrayList<String>> map2, int wordCount) {
+		int i=0;
+		int count=0;
+		Object[] arr;
+		Object[] arr2;
+		
 		for(Map.Entry<String, ArrayList<String>> entry: map.entrySet()) {
 			ArrayList<String> list= entry.getValue();
-			Object[] arr=  list.toArray();
-			for(int j=0;j<arr.length;j++) {
-				System.out.print(arr[j]);
-				map.get(arr[j]);
-			}
-//			while(it.hasNext()) {
-//				for(int i=0;i<wordCount;i++) {
-//					String current=it.next();
-//					map.get(current);
-//				}
-//				
-//				
-//				if(it.hasNext()) {
-//					if(current.equals(it.next())) {
-//						count++;
-//						break;
+			arr=  list.toArray();
+			ArrayList<String> list2 = new ArrayList<String>();
+				if(map2.containsKey(entry.getKey())) {
+					list2= map2.get(entry.getKey());
+				}
+				ArrayList<String> sameElementsInTheLists = new ArrayList<String>();
+				sameElementsInTheLists= iterativeCheck(list,list2);
+				for(String element : sameElementsInTheLists) {
+					System.out.println(element);
+//					for(int j=0;j<wordCount;j++) {
+//						getTheNumbers(map,map2,wordCount);
+					boolean checker= recursiveElementCounter(element, map, map2, wordCount-2,-1);
+					System.out.println(checker);
+					if(checker) {
+						System.out.println(element);
+					}
 //					}
-//				}
-//			}
+				}
+			
+			i=0;
 		}
-		return 0;
+		
+		
+		return count;
+	}
+	public static boolean recursiveElementCounter(String element,HashMap<String,ArrayList<String>> map, HashMap<String,ArrayList<String>> map2, int count,int recursionDepth) {
+//		for(int i=0;i<count;i++) {
+		if(count==0) {
+			return true;
+		}
+		else if(recursionDepth>= count) {
+			return false;
+		}
+		ArrayList<String> listSame = new ArrayList<String>();
+			if(map.containsKey(element) && map2.containsKey(element)) {
+				ArrayList<String> list1 = map.get(element);
+				ArrayList<String> list2 = map2.get(element);
+				listSame =iterativeCheck(list1, list2);
+				if(listSame!=null) {
+					count--;
+					if(count!=0) {
+						for(int i=0;i<listSame.size();i++) {
+							ArrayList<String>list = map.get(listSame.get(i));
+							recursionDepth++;
+							recursiveElementCounter(listSame.get(i), map, map2, count,recursionDepth);
+							
+						}
+					}
+					else {
+						return true;
+					}
+				}
+			}
+			return false;
+			
+			
+			
+//		}
+		
+	}
+	public static ArrayList<String> iterativeCheck(ArrayList<String> arr, ArrayList<String> arr2) {
+		// For every element in this list, check if two elements are equal, if equal then set the same element to be the next element to search for in the map.
+		ArrayList<String> list = new ArrayList<String>();
+		for(String item : arr) {
+			if(arr2.contains(item)) {
+				list.add(item);
+			}
+		}
+		return list;
 	}
 	public static String readFileIntoString(String filename) throws IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(filename));
@@ -72,10 +121,9 @@ public class SimilarFileFinder {
 		System.out.print(stringBuilder.toString());
 		return stringBuilder.toString();
 	}
-	public static HashMap<String,ArrayList<String>> compareTwoFiles(String str1, String str2,int sequenceNumber) {
+	public static HashMap<String,ArrayList<String>> compareTwoFiles(String str1,int sequenceNumber) {
 		HashMap<String,ArrayList<String>> map1 = new HashMap<String,ArrayList<String>>();
 		String[] arr= str1.split(" +|\\. +");
-		String[] arr2= str2.split(" +|\\. +");
 		for (int i=0;i<arr.length;i++) {
 			String lineA=arr[i];
 			if(map1.containsKey(lineA)) {
@@ -94,48 +142,6 @@ public class SimilarFileFinder {
         		}
 	        }
 		}
-		for (int i=0;i<arr2.length;i++) {
-			String lineB=arr2[i];
-			if(map1.containsKey(lineB)) {
-				if(i+1<arr.length) {
-					String lineBchild= arr2[i+1];
-					map1.get(lineB).add(lineBchild);
-				}
-			}
-			else {
-	        	ArrayList<String> list = new ArrayList<String>();
-	        	if(i+1<arr2.length) 
-        		{
-	        		String lineBchild= arr2[i+1];
-		        	list.add(lineBchild);
-		        	map1.put(lineB,list);
-        		}
-	        }
-		}
-		
-//		while (tokenizer.hasMoreTokens()) {
-//					line1 = tokenizer.nextToken();
-//					temp.nextToken();
-//			        if(map1.containsKey(line1)) {
-//			        	if(tokenizer.hasMoreTokens()) 
-//			        		{
-//			        		line1Child = tokenizer.nextToken().toString();
-//			        		map1.get(line1).add(line1Child);
-//			        		tokenizer=temp;
-//			        		}
-//			        	
-//			        }
-//			        else {
-//			        	ArrayList<String> list = new ArrayList<String>();
-//			        	if(tokenizer.hasMoreTokens()) 
-//		        		{
-//				        	line1Child = tokenizer.nextToken().toString();
-//				        	list.add(line1Child);
-//				        	map1.put(line1,list);
-//				        	tokenizer=temp;
-//		        		}
-//			        }
-//			}
 		System.out.print(map1.toString());
 		
 		return map1;
