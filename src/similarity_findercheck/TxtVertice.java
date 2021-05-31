@@ -5,10 +5,33 @@ import java.io.*;
 
 class txtVertice  {
   
+	
+public String nameoftxt;	
   public String txt; 
   private int id;  
-
+  public int u_id;
+  public  txtVertice[] u_group;
+  public int counter=0;
 public txtVertice(){
+}
+
+public int getId() {
+return id;	
+}
+
+public void setNameofTxt(String name) {
+nameoftxt=name;
+}
+
+
+public void addU_group(txtVertice toAdd) {
+u_group[counter]= toAdd;	
+counter++;
+}
+
+
+public void setU_group(int n) {
+u_group= new txtVertice[n];	
 }
 
 
