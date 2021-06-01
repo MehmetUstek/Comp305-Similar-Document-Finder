@@ -90,7 +90,7 @@ class Main {
 			
 			
 			
-			int weight= similarity_finder(master.txt,array_of_vertice[i].txt);
+			int weight= similarity_finder(master.txt,array_of_vertice[i].txt); // O(n^3)
 	
 			EdgeMatrix[actual_index][actual_index+i]=weight ;
 			EdgeMatrix[actual_index+i][actual_index]=weight ;
