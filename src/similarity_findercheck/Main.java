@@ -96,7 +96,7 @@ class Main {
 			EdgeMatrix[actual_index+i][actual_index]=weight ;
 }
 		
-		txtVertice[] array_of_vertice2 = new txtVertice[array_of_vertice.length-1];
+		txtVertice[] array_of_vertice2 = new txtVertice[array_of_vertice.length-1]; /// Her file 1 kere dönülüyor, analize etkisi ??? 
 		
 		
 		for(int i = 1; i<n;i++) {
