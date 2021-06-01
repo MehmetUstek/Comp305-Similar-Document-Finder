@@ -19,7 +19,7 @@ class Main {
 	int i = 0 ; 
 	    for (String name_of_txt  : directory.list()) {
 	    	array_of_vertice[i]	= new txtVertice();
-	    	array_of_vertice[i].setNameofTxt(name_of_txt); 
+	    	array_of_vertice[i].setNameofTxt(name_of_txt); /// Preperation COst of O(n)
 	    	array_of_vertice[i].setTxt(name_of_txt);
 	  		nameofTxt[i]=name_of_txt;
 	  		array_of_vertice[i].setU_group(n);
