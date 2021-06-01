@@ -116,7 +116,7 @@ class Main {
 	
 	
 	
-	private static void printer(int n,int limit,int source, txtVertice[] Set, int[] visited, int layer ,int [] groups, int groupid ) {
+	private static void printer(int n,int limit,int source, txtVertice[] Set, int[] visited, int layer ,int [] groups, int groupid ) { ///  O(n)
 		if(visited[source]==0) { 
 		String [] upperLimitNames = new  String[n];
 		int [] upperLimitWeights = new  int[n];
