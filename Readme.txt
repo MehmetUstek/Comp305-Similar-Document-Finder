@@ -59,4 +59,12 @@ Second:
 Unorthodox sets are printed by printer function and it uses ([][] EdgeMatrix) to print the weights
 
 ----------------------------------------------------------
+ TEST CASES
+ In 4 files: 0.404 seconds.
+ In 8 files: 1.475 seconds
+ In 14 files: 5.537 seconds.
+ In 26 files: 23.841 seconds
+ ===============================================================================
+ 
+ 
  
